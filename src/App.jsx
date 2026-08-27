@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Form } from "./components/Form";
 import { PersonInfo } from "./components/PersonInfo";
+import "./App.css";
 
-const people = [
+const initialPeople = [
   {
     name: "Tomek",
     tel: 445890221,
@@ -21,25 +22,33 @@ const people = [
 
 function App() {
   const [isFormShown, setIsFormShown] = useState(false);
+  const [people, setPeople] = useState(initialPeople);
   const handleShowFormClick = () => setIsFormShown(true);
+
+  const addPerson = (data) => {
+    const newPeople = [...people, data];
+    setPeople(newPeople);
+    setIsFormShown(false);
+  };
 
   return (
     <>
       <h1>Lista kontaktów</h1>
       {isFormShown ? (
-        <Form />
+        <Form onAddPerson={addPerson} />
       ) : (
         <button onClick={handleShowFormClick}> Dodaj</button>
       )}
-
-      {people.map((person) => (
-        <PersonInfo
-          key={person.tel}
-          name={person.name}
-          tel={person.tel}
-          city={person.city}
-        />
-      ))}
+      <ul>
+        {people.map((person) => (
+          <PersonInfo
+            key={person.tel}
+            name={person.name}
+            tel={person.tel}
+            city={person.city}
+          />
+        ))}
+      </ul>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Tel } from "./Tel";
+import "./PersonInfo.css";
 
 export const PersonInfo = (props) => {
   let stateArray = useState(false);
@@ -17,7 +18,7 @@ export const PersonInfo = (props) => {
   );
 
   return (
-    <>
+    <li className={isExpanded ? "active" : ""}>
       <h2>{props.name}</h2>
       {buttonHS}
       {isExpanded && (
@@ -28,7 +29,6 @@ export const PersonInfo = (props) => {
           {props.city !== undefined ? <h3>Miasto: {props.city}</h3> : null}
         </>
       )}
-      <hr />
-    </>
+    </li>
   );
 };
